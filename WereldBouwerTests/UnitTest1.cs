@@ -34,7 +34,7 @@ namespace WereldBouwerTests
                 new WereldBouwer { id = Guid.NewGuid(), name = "Test1" },
                 new WereldBouwer { id = Guid.NewGuid(), name = "Test2" }
             };
-            _mockRepo.Setup(repo => repo.GetAllAsync()).ReturnsAsync(wereldBouwers);
+            _mockRepo.Setup(repo => repo.GetAllAsync()).ReturnsAsync((IEnumerable<WereldBouwer>)wereldBouwers);
 
             // Act
             var result = await _controller.Get();
@@ -51,7 +51,7 @@ namespace WereldBouwerTests
             // Arrange
             var wereldBouwerId = Guid.NewGuid();
             var wereldBouwer = new WereldBouwer { id = wereldBouwerId, name = "Test" };
-            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync(wereldBouwer);
+            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync((WereldBouwer?)wereldBouwer);
 
             // Act
             var result = await _controller.Get(wereldBouwerId);
@@ -67,7 +67,7 @@ namespace WereldBouwerTests
         {
             // Arrange
             var wereldBouwerId = Guid.NewGuid();
-            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync((WereldBouwer)null);
+            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync((WereldBouwer?)null);
 
             // Act
             var result = await _controller.Get(wereldBouwerId);
@@ -82,7 +82,7 @@ namespace WereldBouwerTests
             // Arrange
             var userId = "test-user-id";
             var wereldBouwer = new WereldBouwer { id = Guid.NewGuid(), name = "Test", ownerUserId = userId };
-            _mockRepo.Setup(repo => repo.GetByUserIdAsync(userId)).ReturnsAsync(new List<WereldBouwer> { wereldBouwer });
+            _mockRepo.Setup(repo => repo.GetByUserIdAsync(userId)).ReturnsAsync((IEnumerable<WereldBouwer>)new List<WereldBouwer> { wereldBouwer });
 
             // Act
             var result = await _controller.GetWereld(userId);
@@ -99,7 +99,7 @@ namespace WereldBouwerTests
         {
             // Arrange
             var userId = "test-user-id";
-            _mockRepo.Setup(repo => repo.GetByUserIdAsync(userId)).ReturnsAsync((IEnumerable<WereldBouwer>)null);
+            _mockRepo.Setup(repo => repo.GetByUserIdAsync(userId)).ReturnsAsync((IEnumerable<WereldBouwer>?)null);
 
             // Act
             var result = await _controller.GetWereld(userId);
@@ -114,7 +114,7 @@ namespace WereldBouwerTests
             // Arrange
             var wereldBouwer = new WereldBouwer { name = "Test" };
             _mockAuthService.Setup(auth => auth.GetCurrentAuthenticatedUserId()).Returns("test-user-id");
-            _mockRepo.Setup(repo => repo.AddAsync(It.IsAny<WereldBouwer>())).ReturnsAsync(wereldBouwer);
+            _mockRepo.Setup(repo => repo.AddAsync(It.IsAny<WereldBouwer>())).ReturnsAsync((WereldBouwer?)wereldBouwer);
 
             // Act
             var result = await _controller.Post(wereldBouwer);
@@ -132,7 +132,7 @@ namespace WereldBouwerTests
             var wereldBouwerId = Guid.NewGuid();
             var existingWereldBouwer = new WereldBouwer { id = wereldBouwerId, name = "Existing" };
             var updatedWereldBouwer = new WereldBouwer { id = wereldBouwerId, name = "Updated" };
-            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync(existingWereldBouwer);
+            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync((WereldBouwer?)existingWereldBouwer);
             _mockRepo.Setup(repo => repo.UpdateAsync(updatedWereldBouwer)).Returns(Task.CompletedTask);
 
             // Act
@@ -150,7 +150,7 @@ namespace WereldBouwerTests
             // Arrange
             var wereldBouwerId = Guid.NewGuid();
             var updatedWereldBouwer = new WereldBouwer { id = wereldBouwerId, name = "Updated" };
-            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync((WereldBouwer)null);
+            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync((WereldBouwer?)null);
 
             // Act
             var result = await _controller.Put(wereldBouwerId, updatedWereldBouwer);
@@ -165,7 +165,7 @@ namespace WereldBouwerTests
             // Arrange
             var wereldBouwerId = Guid.NewGuid();
             var wereldBouwer = new WereldBouwer { id = wereldBouwerId, name = "Test" };
-            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync(wereldBouwer);
+            _mockRepo.Setup(repo => repo.GetByWereldbouwerIdAsync(wereldBouwerId)).ReturnsAsync((WereldBouwer?)wereldBouwer);
             _mockRepo.Setup(repo => repo.DeleteAsync(wereldBouwerId)).Returns(Task.CompletedTask);
 
             // Act
