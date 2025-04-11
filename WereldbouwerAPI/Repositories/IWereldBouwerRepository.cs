@@ -11,7 +11,7 @@ namespace WereldbouwerAPI
         Task<IEnumerable<WereldBouwer>> GetByUserIdAsync(string id);
         Task<WereldBouwer> AddAsync(WereldBouwer wereldBouwer); // Updated to return Task<WereldBouwer>
         Task UpdateAsync(WereldBouwer wereldBouwer);
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(string id);
     }
 }
 

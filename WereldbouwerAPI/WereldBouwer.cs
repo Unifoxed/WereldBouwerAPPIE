@@ -4,7 +4,7 @@ namespace WereldbouwerAPI
 {
     public class WereldBouwer
     {
-        public Guid id { get; set; }
+        public string id { get; set; }
         [Required]
         public string name { get; set; }
         [Required]

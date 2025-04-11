@@ -54,7 +54,7 @@ namespace WereldbouwerAPI.Controllers
 
         [HttpGet("{wereldBouwerId}", Name = "GetWereldBouwerById")]
         [Authorize]
-        public async Task<ActionResult<WereldBouwer>> Get(Guid wereldBouwerId)
+        public async Task<ActionResult<WereldBouwer>> Get(string wereldBouwerId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             var wereldBouwer = await _wereldBouwerRepository.GetByWereldbouwerIdAsync(wereldBouwerId);
@@ -70,7 +70,7 @@ namespace WereldbouwerAPI.Controllers
         public async Task<IActionResult> Post(WereldBouwer wereldBouwer)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
-            wereldBouwer.id = Guid.NewGuid();
+            wereldBouwer.id = Guid.NewGuid().ToString();
             wereldBouwer.ownerUserId = userId;
             await _wereldBouwerRepository.AddAsync(wereldBouwer);
             return CreatedAtRoute("GetWereldBouwer", new { id = wereldBouwer.id }, wereldBouwer);
@@ -79,7 +79,7 @@ namespace WereldbouwerAPI.Controllers
 
         [HttpPut("{wereldBouwerId}", Name = "PutWereldBouwer")]
         [Authorize]
-        public async Task<ActionResult> Put(Guid wereldBouwerId, WereldBouwer newWereldBouwer)
+        public async Task<ActionResult> Put(string wereldBouwerId, WereldBouwer newWereldBouwer)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             var existingWereldBouwer = await _wereldBouwerRepository.GetByWereldbouwerIdAsync(wereldBouwerId);
@@ -96,7 +96,7 @@ namespace WereldbouwerAPI.Controllers
 
         [HttpDelete("{wereldBouwerId}", Name = "DeleteWereldBouwer")]
         [Authorize]
-        public async Task<IActionResult> Delete(Guid wereldBouwerId)
+        public async Task<IActionResult> Delete(string wereldBouwerId)
         {
             var userId = _authenticationService.GetCurrentAuthenticatedUserId();
             var existingWereldBouwer = await _wereldBouwerRepository.GetByWereldbouwerIdAsync(wereldBouwerId);

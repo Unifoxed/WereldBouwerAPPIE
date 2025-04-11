@@ -64,7 +64,7 @@ namespace WereldbouwerAPI
             }
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(string id)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
