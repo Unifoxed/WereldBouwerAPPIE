@@ -34,7 +34,7 @@ namespace WereldbouwerAPI
             }
         }
 
-        public async Task<WereldBouwer> GetByWereldbouwerIdAsync(Guid id)
+        public async Task<WereldBouwer> GetByWereldbouwerIdAsync(string id)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
