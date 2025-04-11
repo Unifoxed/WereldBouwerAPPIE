@@ -5,9 +5,9 @@ namespace WereldbouwerAPI
     public class Object2D
     {
         [Required]
-        public Guid id { get; set; }
+        public string id { get; set; }
         [Required]
-        public Guid environmentId { get; set; }
+        public string environmentId { get; set; }
         [Required]
         public string prefabId { get; set; }
         public float positionX { get; set; }

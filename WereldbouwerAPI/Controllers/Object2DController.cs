@@ -24,7 +24,7 @@ namespace WereldbouwerAPI.Controllers
 
         [HttpGet("{environmentId}", Name = "GetAllObject2D")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Object2D>>> GetByEnvironmentId(Guid environmentId)
+        public async Task<ActionResult<IEnumerable<Object2D>>> GetByEnvironmentId(string environmentId)
         {
             var objects = await _object2DRepository.GetByEnvironmentIdAsync(environmentId);
             return Ok(objects);
@@ -40,14 +40,14 @@ namespace WereldbouwerAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            object2D.id = Guid.NewGuid();
+            object2D.id = Guid.NewGuid().ToString();
             var result = await _object2DRepository.AddObject2DAsync(object2D);
             return Ok(result);
         }
 
         [HttpDelete("environment/{environmentId}", Name = "DeleteAllByEnvironmentId")]
         [Authorize]
-        public async Task<IActionResult> DeleteAllByEnvironmentId(Guid environmentId)
+        public async Task<IActionResult> DeleteAllByEnvironmentId(string environmentId)
         {
             await _object2DRepository.DeleteAllByEnvironmentIdAsync(environmentId);
             return NoContent();

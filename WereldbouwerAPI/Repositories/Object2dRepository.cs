@@ -15,7 +15,7 @@ namespace WereldbouwerAPI
             this.sqlConnectionString = sqlConnectionString;
         }
 
-        public async Task<IEnumerable<Object2D>> GetByEnvironmentIdAsync(Guid environmentId)
+        public async Task<IEnumerable<Object2D>> GetByEnvironmentIdAsync(string environmentId)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
@@ -38,7 +38,7 @@ namespace WereldbouwerAPI
         }
 
 
-        public async Task DeleteAllByEnvironmentIdAsync(Guid environmentId)
+        public async Task DeleteAllByEnvironmentIdAsync(string environmentId)
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
